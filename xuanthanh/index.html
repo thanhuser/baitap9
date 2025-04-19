@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng ký & Đăng nhập</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Đăng ký</h2>
+  <input type="text" id="regUser" placeholder="Tên người dùng">
+  <input type="password" id="regPass" placeholder="Mật khẩu">
+  <button onclick="register()">Đăng ký</button>
+
+  <h2>Đăng nhập</h2>
+  <input type="text" id="loginUser" placeholder="Tên người dùng">
+  <input type="password" id="loginPass" placeholder="Mật khẩu">
+  <button onclick="login()">Đăng nhập</button>
+
+  <div class="message" id="message"></div>
+</div>
+
+<script>
+  let users = {};
+
+  function register() {
+    const username = document.getElementById("regUser").value;
+    const password = document.getElementById("regPass").value;
+
+    if (username === "" || password === "") {
+      showMessage("Vui lòng điền đầy đủ thông tin");
+      return;
+    }
+
+    if (users[username]) {
+      showMessage("Tên người dùng đã tồn tại");
+    } else {
+      users[username] = password;
+      showMessage("Đăng ký thành công", true);
+    }
+  }
+
+  function login() {
+    const username = document.getElementById("loginUser").value;
+    const password = document.getElementById("loginPass").value;
+
+    if (users[username] && users[username] === password) {
+      showMessage("Đăng nhập thành công!", true);
+    } else {
+      showMessage("Sai tên người dùng hoặc mật khẩu");
+    }
+  }
+
+  function showMessage(msg, success = false) {
+    const msgDiv = document.getElementById("message");
+    msgDiv.style.color = success ? "green" : "red";
+    msgDiv.inner
